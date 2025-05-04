@@ -1,95 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [wannaLearn, setWannaLearn] = useState(false);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const contentLearn = (
+    <>
+      <h1>How to Square</h1>
+      <h4>
+        To square a number, you multiply it by itself.<br />
+        For example, to square 5, you do 5 x 5 = 25.<br />
+        But to make it easier, you can use the following method:<br />
+        <ol>
+          <li>Take the first digit and multiply it by itself.</li>
+          <li>Take the first digit and multiply it by the second digit, then double it.</li>
+          <li>Take the second digit and multiply it by itself.</li>
+          <li>Put them together in order.</li>
+        </ol>
+        For example, to square 23:<br />
+        <ol>
+          <li>2 x 2 = 4</li>
+          <li>2 x 3 = 6, double it = 12</li>
+          <li>3 x 3 = 9</li>
+          <li>Put them together: 4, 12 (carry the one) and 9 become: 529</li>
+        </ol>
+        So 23 x 23 = 529.<br />
+      </h4>
+      <h2>Now, Do you want to</h2>
+      <Link href="/practice">
+        <button>Practice Squaring?</button>
+      </Link>
+    </>
+  )
+  return (
+    <>
+      {wannaLearn ? contentLearn :
+        <>
+          <h1>Welcome to the LearnToSquare Platform</h1>
+          <h2>Do you want to...</h2>
+          <button onClick={() => setWannaLearn(true)}>Learn To Square</button>
+          <Link href="/practice">
+            <button>Practice Squaring</button>
+          </Link>
+        </>
+      }
+    </>
   );
 }
