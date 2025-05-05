@@ -5,43 +5,61 @@ export default function Practice() {
   const [question, setQuestion] = useState(null);
   const [check, setCheck] = useState(null);
   const [answer, setAnswer] = useState();
+  const [startTime, setStartTime] = useState(null); // Track when the question is generated
+  const [timeSpent, setTimeSpent] = useState(null); // Track time spent answering
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 90) + 10;
     setQuestion(randomNumber);
+    setStartTime(Date.now()); // Record the start time when the question is generated
   }, []);
+
+  const handleSubmit = () => {
+    setCheck(true);
+    const endTime = Date.now(); // Record the time when the answer is submitted
+    setTimeSpent(((endTime - startTime) / 1000).toFixed(2)); // Calculate time spent in seconds
+  };
 
   return (
     <>
       <div>
         <p className="question">Your question: <span>{question}</span></p>
-        <input type="text" placeholder="Your answer" onChange={
-          (e) => {
+        <input
+          type="text"
+          placeholder="Your answer"
+          onChange={(e) => {
             setAnswer(e.target.value);
-          }
-        } />
+          }}
+        />
         <br />
-        <button onClick={() => {
-          setCheck(true)
-        }}>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
         <br />
         {check && (
           <div>
-            {answer != toString(question * question) && <p>Correct answer: {question * question}</p>}
+            {answer != question * question && (
+              <p>Correct answer: {question * question}</p>
+            )}
+            <p>Time spent answering: {timeSpent} seconds</p>
             <button
               style={{
                 backgroundColor: answer == question * question ? 'green' : '#ff6161',
                 color: 'white',
                 borderColor: answer == question * question ? 'darkgreen' : '#ff4040',
               }}
-              onClick={
-                () => {
-                  setCheck(false);
-                }
-              }>Next Question</button>
+              onClick={() => {
+                setCheck(false);
+                const randomNumber = Math.floor(Math.random() * 90) + 10;
+                setQuestion(randomNumber);
+                setStartTime(Date.now()); // Reset the start time for the new question
+                setAnswer(null); // Clear the previous answer
+                setTimeSpent(null); // Reset the time spent
+              }}
+            >
+              Next Question
+            </button>
           </div>
         )}
-      </div >
+      </div>
     </>
   );
 }
