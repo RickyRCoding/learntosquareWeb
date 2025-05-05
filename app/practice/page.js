@@ -3,24 +3,45 @@ import { useState, useEffect } from "react";
 
 export default function Practice() {
   const [question, setQuestion] = useState(null);
-  const [counter, setCounter] = useState(0);
+  const [check, setCheck] = useState(null);
+  const [answer, setAnswer] = useState();
 
   useEffect(() => {
-    // Generate a random number when the component mounts
     const randomNumber = Math.floor(Math.random() * 90) + 10;
     setQuestion(randomNumber);
   }, []);
 
   return (
     <>
-
-      {question !== null ? (
-        <div>
-          <p>Your question: {question}</p>
-          <input type="text" placeholder="Your answer" />
-        </div>
-      ) : (<><h1 className="are">Are you ready?</h1>
-        <button onClick={() => { setCounter(previous => { previous + 1 }) }}>Gimme a question!</button></>)}
+      <div>
+        <p className="question">Your question: <span>{question}</span></p>
+        <input type="text" placeholder="Your answer" onChange={
+          (e) => {
+            setAnswer(e.target.value);
+          }
+        } />
+        <br />
+        <button onClick={() => {
+          setCheck(true)
+        }}>Submit</button>
+        <br />
+        {check && (
+          <div>
+            {answer != toString(question * question) && <p>Correct answer: {question * question}</p>}
+            <button
+              style={{
+                backgroundColor: answer == question * question ? 'green' : '#ff6161',
+                color: 'white',
+                borderColor: answer == question * question ? 'darkgreen' : '#ff4040',
+              }}
+              onClick={
+                () => {
+                  setCheck(false);
+                }
+              }>Next Question</button>
+          </div>
+        )}
+      </div >
     </>
   );
 }

@@ -31,3 +31,23 @@ h4 {
 .are {
   padding-top: 50%;
 }
+
+.question {
+  font-size: 1.7rem;
+  color: #000000;
+}
+
+span {
+  font-size: 2rem;
+  color: #000000;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+  border: 0.2rem solid rgb(135, 135, 135);
+  font-size: 3rem;
+  background-color: #eaf7f5;
+  font-family: "Comfortaa", sans-serif;
+}
