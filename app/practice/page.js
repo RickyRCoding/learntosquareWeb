@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 export default function Practice() {
   const [question, setQuestion] = useState(null);
   const [check, setCheck] = useState(null);
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
   const [startTime, setStartTime] = useState(null); // Track when the question is generated
   const [timeSpent, setTimeSpent] = useState(null); // Track time spent answering
   const [totalTime, setTotalTime] = useState(0); // Track total time spent
@@ -34,6 +34,7 @@ export default function Practice() {
         <input
           type="text"
           placeholder="Your answer"
+          value={answer} // Bind the input value to the `answer` state
           onChange={(e) => {
             setAnswer(e.target.value);
           }}
@@ -59,7 +60,7 @@ export default function Practice() {
                 const randomNumber = Math.floor(Math.random() * 90) + 10;
                 setQuestion(randomNumber);
                 setStartTime(Date.now()); // Reset the start time for the new question
-                setAnswer(null); // Clear the previous answer
+                setAnswer(""); // Clear the input bar
                 setTimeSpent(null); // Reset the time spent
               }}
             >
